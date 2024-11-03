@@ -1,0 +1,2615 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Falah Nurdiansyah</title>
+    <!-- Link ke Bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #4e73df;
+            --secondary-color: #858796;
+            --success-color: #1cc88a;
+            --info-color: #36b9cc;
+            --warning-color: #f6c23e;
+            --danger-color: #e74a3b;
+            --light-color: #f8f9fc;
+            --dark-color: #5a5c69;
+        }
+
+        body {
+            background-color: #f8f9fc;
+            font-family: 'Nunito', sans-serif;
+        }
+
+        /* Sidebar Styling */
+        .sidebar {
+            background: linear-gradient(180deg, #4e73df 10%, #224abe 100%);
+            min-height: 100vh;
+            position: fixed;
+            transition: all 0.3s;
+            box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
+            padding-top: 0;
+            width: 250px;
+            z-index: 100;
+        }
+
+        .sidebar-heading {
+            color: white !important;
+            font-weight: 700;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            padding: 1rem;
+            margin-bottom: 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-item {
+            position: relative;
+        }
+
+        .nav-link {
+            color: rgba(255, 255, 255, 0.8) !important;
+            padding: 0.8rem 1rem;
+            font-weight: 500;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            transition: all 0.3s;
+        }
+
+        .nav-link:hover {
+            color: white !important;
+            background: rgba(255, 255, 255, 0.1);
+            padding-left: 1.25rem;
+        }
+
+        .nav-link i {
+            font-size: 0.85rem;
+            margin-right: 0.5rem;
+            width: 20px;
+            text-align: center;
+        }
+
+        .bg-submenu {
+            background: rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-link.sub-item {
+            padding-left: 3rem;
+            font-size: 0.85rem;
+        }
+
+        .nav-link.sub-item:hover {
+            padding-left: 3.25rem;
+        }
+
+        .collapse {
+            transition: all 0.2s ease;
+        }
+
+        .fa-angle-down {
+            transition: transform 0.2s;
+        }
+
+        .collapsed .fa-angle-down {
+            transform: rotate(-90deg);
+        }
+
+        /* Active state */
+        .nav-link.active {
+            background: rgba(255, 255, 255, 0.2);
+            color: white !important;
+        }
+
+        /* Profile section improvements */
+        .profile-section {
+            padding: 1.5rem 1rem;
+            background: rgba(0, 0, 0, 0.1);
+            margin-bottom: 0;
+        }
+
+        .profile-image-wrapper {
+            width: 70px;
+            height: 70px;
+            margin-bottom: 1rem;
+        }
+
+        .profile-info h6 {
+            font-size: 0.95rem;
+            letter-spacing: 0.5px;
+        }
+
+        .sidebar-divider {
+            margin: 0.75rem 0;
+            opacity: 0.2;
+        }
+
+        /* Card Styling */
+        .card {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+            word-wrap: break-word;
+            background-color: #fff;
+            background-clip: border-box;
+            border: 1px solid #e3e6f0;
+            border-radius: 0.35rem;
+        }
+
+        .shadow {
+            box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15) !important;
+        }
+
+        .table-hover tbody tr:hover {
+            background-color: rgba(78, 115, 223, 0.05);
+        }
+
+        .badge-success {
+            background-color: #1cc88a;
+        }
+
+        .badge-warning {
+            background-color: #f6c23e;
+            color: #fff;
+        }
+
+        .badge-danger {
+            background-color: #e74a3b;
+        }
+
+        .badge-info {
+            background-color: #36b9cc;
+        }
+
+        /* Button Styling */
+        .btn-primary {
+            background: linear-gradient(to right, #4e73df, #a7b8ea);
+            border: none;
+            padding: 0.5rem 1.5rem;
+            border-radius: 0.35rem;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+            background: linear-gradient(to right, #224abe, #4e73df);
+        }
+
+        /* Table Styling */
+        .table {
+            background: white;
+            border-radius: 0.35rem;
+        }
+
+        .table thead th {
+            background-color: #f8f9fc;
+            border-top: none;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 0.05em;
+        }
+
+        /* Badge Styling */
+        .badge {
+            padding: 0.5em 1em;
+            font-weight: 600;
+            border-radius: 0.35rem;
+        }
+
+        /* Modal Styling */
+        .modal-content {
+            border: none;
+            border-radius: 0.5rem;
+        }
+
+        .modal-header {
+            background: linear-gradient(to right, #4e73df, #224abe);
+            color: white;
+            border-radius: 0.5rem 0.5rem 0 0;
+        }
+
+        .modal-header .close {
+            color: white;
+        }
+
+        .form-control {
+            border-radius: 0.35rem;
+            padding: 0.75rem 1rem;
+            border: 1px solid #d1d3e2;
+        }
+
+        .form-control:focus {
+            border-color: #4e73df;
+            box-shadow: 0 0 0 0.2rem rgba(78, 115, 223, 0.25);
+        }
+
+        /* Content Area Styling */
+        .content {
+            padding: 1.5rem;
+            margin-left: 225px;
+        }
+
+        /* Section Headers */
+        .section-content h2 {
+            color: #5a5c69;
+            font-weight: 700;
+            font-size: 1.75rem;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #4e73df;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #224abe;
+        }
+
+        /* Animation */
+        .section-content {
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Warna font untuk semua menu */
+        .nav-link {
+            color: white !important;
+        }
+
+        /* Warna font untuk sub menu */
+        .nav-item a {
+            color: white !important;
+        }
+
+        /* Warna font untuk judul menu */
+        .sidebar h3 {
+            color: white !important;
+        }
+
+        /* Hover effect */
+        .nav-link:hover, 
+        .nav-item a:hover {
+            color: #f8f9fa !important;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Card styling untuk dashboard */
+        .border-left-primary {
+            border-left: 4px solid #4e73df !important;
+        }
+        .border-left-success {
+            border-left: 4px solid #1cc88a !important;
+        }
+        .border-left-warning {
+            border-left: 4px solid #f6c23e !important;
+        }
+        .border-left-info {
+            border-left: 4px solid #36b9cc !important;
+        }
+        .text-gray-300 {
+            color: #dddfeb !important;
+        }
+        .text-gray-800 {
+            color: #5a5c69 !important;
+        }
+
+        /* Styling untuk judul utama */
+        .divider {
+            max-width: 3.25rem;
+            border-width: 0.2rem;
+            border-color: #4e73df;
+        }
+
+        .text-gray-600 {
+            color: #858796 !important;
+        }
+
+        .section-content h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .section-content p {
+            font-size: 1.15rem;
+        }
+
+        /* Profile Section */
+        .profile-section {
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            margin-bottom: 1rem;
+        }
+
+        .profile-image-wrapper {
+            width: 80px;
+            height: 80px;
+            position: relative;
+            overflow: hidden;
+            border-radius: 50%;
+            border: 3px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .profile-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .profile-info h6 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin: 0;
+        }
+
+        .profile-info small {
+            font-size: 0.8rem;
+            opacity: 0.8;
+        }
+
+        .sidebar-divider {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin: 1rem 0;
+        }
+
+        /* Custom styling for absensi section */
+        .border-left-primary {
+            border-left: 0.25rem solid #4e73df !important;
+        }
+
+        .border-left-success {
+            border-left: 0.25rem solid #1cc88a !important;
+        }
+
+        .border-left-warning {
+            border-left: 0.25rem solid #f6c23e !important;
+        }
+
+        .border-left-danger {
+            border-left: 0.25rem solid #e74a3b !important;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .btn-group {
+                margin-top: 1rem;
+            }
+            
+            .statistics-card {
+                margin-bottom: 1rem;
+            }
+        }
+    </style>
+
+    <!-- Add Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <!-- Add Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <nav class="col-md-3 col-lg-2 d-md-block sidebar">
+                <!-- Profile Section -->
+                <div class="profile-section text-center py-3">
+                    <div class="profile-image-wrapper mx-auto mb-2">
+                        <img src="pp.jpeg" alt="Profile" class="profile-image">
+                    </div>
+                    <div class="profile-info">
+                        <h6 class="mb-1 text-white">Falah Nurdiansyah</h6>
+                        <small class="text-light">Admin</small>
+                    </div>
+                    <hr class="sidebar-divider">
+                </div>
+                
+                <!-- Sidebar Menu -->
+                <h3 class="sidebar-heading">UNIVERSITAS PAMULANG</h3>
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="showSection('dashboard')">
+                            <i class="fas fa-fw fa-tachometer-alt mr-2"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    
+                    <li class="nav-item">
+                        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseKaryawan">
+                            <i class="fas fa-fw fa-users mr-2"></i>
+                            <span>Karyawan</span>
+                            <i class="fas fa-angle-down float-right mt-1"></i>
+                        </a>
+                        <div id="collapseKaryawan" class="collapse">
+                            <div class="bg-submenu py-2">
+                                <a class="nav-link sub-item" href="#" onclick="showSection('karyawan-list')">
+                                    <i class="fas fa-fw fa-user-tie mr-2"></i>
+                                    <span>Data Karyawan</span>
+                                </a>
+                                <a class="nav-link sub-item" href="#" onclick="showSection('jabatan')">
+                                    <i class="fas fa-fw fa-briefcase mr-2"></i>
+                                    <span>Jabatan</span>
+                                </a>
+                                <a class="nav-link sub-item" href="#" onclick="showSection('divisi')">
+                                    <i class="fas fa-fw fa-sitemap mr-2"></i>
+                                    <span>Divisi</span>
+                                </a>
+                            </div>
+                        </div>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseAbsensi">
+                            <i class="fas fa-fw fa-calendar-check mr-2"></i>
+                            <span>Absensi</span>
+                            <i class="fas fa-angle-down float-right mt-1"></i>
+                        </a>
+                        <div id="collapseAbsensi" class="collapse">
+                            <div class="bg-submenu py-2">
+                                <a class="nav-link sub-item" href="#" onclick="showSection('absensi-list')">
+                                    <i class="fas fa-fw fa-clock mr-2"></i>
+                                    <span>Data Absensi</span>
+                                </a>
+                                <a class="nav-link sub-item" href="#" onclick="showSection('izin')">
+                                    <i class="fas fa-fw fa-file-alt mr-2"></i>
+                                    <span>Izin</span>
+                                </a>
+                                <a class="nav-link sub-item" href="#" onclick="showSection('sakit')">
+                                    <i class="fas fa-fw fa-notes-medical mr-2"></i>
+                                    <span>Sakit</span>
+                                </a>
+                            </div>
+                        </div>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePenggajian">
+                            <i class="fas fa-fw fa-money-bill-wave mr-2"></i>
+                            <span>Penggajian</span>
+                            <i class="fas fa-angle-down float-right mt-1"></i>
+                        </a>
+                        <div id="collapsePenggajian" class="collapse">
+                            <div class="bg-submenu py-2">
+                                <a class="nav-link sub-item" href="#" onclick="showSection('slipgaji')">
+                                    <i class="fas fa-fw fa-file-invoice-dollar mr-2"></i>
+                                    <span>Slip Gaji</span>
+                                </a>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+
+            <!-- Main Content -->
+            <main class="col-md-9 ml-sm-auto col-lg-10 px-md-4 content">
+                <!-- Dashboard Section -->
+                <section id="dashboard" class="section-content">
+                    <!-- Tambahkan judul utama -->
+                    <div class="text-center mb-4">
+                        <h1 class="h1 text-gray-800 font-weight-bold">SISTEM INFORMASI MANAJEMEN</h1>
+                        <p class="text-gray-600">UNIVERSITAS PAMULANG</p>
+                        <hr class="divider my-4">
+                    </div>
+
+                    <h2>Dashboard</h2>
+                    <div class="row">
+                        <!-- Card Jumlah Karyawan -->
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-primary shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                                Jumlah Karyawan</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">5</div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-users fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card Kehadiran Hari Ini -->
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-success shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                                Kehadiran Hari Ini</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">2</div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-calendar-check fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card Izin/Sakit -->
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-warning shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                                Izin/Sakit</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">2</div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-user-clock fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card Total Divisi -->
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-info shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                                                Total Divisi</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">5</div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-sitemap fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Grafik dan Tabel -->
+                    <div class="row">
+                        <!-- Grafik Kehadiran -->
+                        <div class="col-xl-8 col-lg-7">
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary">Grafik Kehadiran Bulanan</h6>
+                                </div>
+                                <div class="card-body">
+                                    <canvas id="kehadiranChart" style="height: 300px;"></canvas>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Daftar Karyawan Terbaru -->
+                        <div class="col-xl-4 col-lg-5">
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary">Karyawan Terbaru</h6>
+                                </div>
+                                <div class="card-body">
+                                    <div class="list-group list-group-flush">
+                                        <a href="#" class="list-group-item list-group-item-action">
+                                            <div class="d-flex w-100 justify-content-between">
+                                                <h6 class="mb-1">Yudi Santoso</h6>
+                                                <small>3 hari yang lalu</small>
+                                            </div>
+                                            <p class="mb-1">Divisi Marketing - Staff Marketing</p>
+                                        </a>
+                                        <a href="#" class="list-group-item list-group-item-action">
+                                            <div class="d-flex w-100 justify-content-between">
+                                                <h6 class="mb-1">Joko Susilo</h6>
+                                                <small>5 hari yang lalu</small>
+                                            </div>
+                                            <p class="mb-1">Divisi Finance - Staff Keuangan</p>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 1. Menu Karyawan -->
+                <section id="karyawan-list" class="section-content" style="display: none;">
+                    <h2>Data Karyawan</h2>
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <h5 id="data-count">Total Data: 0</h5>
+                                <button class="btn btn-primary" data-toggle="modal" data-target="#modalTambahKaryawan">
+                                    <i class="fas fa-plus"></i> Tambah Karyawan
+                                </button>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>NIP</th>
+                                            <th>Nama Lengkap</th>
+                                            <th>Jabatan</th>
+                                            <th>Divisi</th>
+                                            <th>Email</th>
+                                            <th>No. Telepon</th>
+                                            <th>Status</th>
+                                            <th>Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>NIP001</td>
+                                            <td>Falah Nurdiansyah</td>
+                                            <td>Manager IT</td>
+                                            <td>IT</td>
+                                            <td>falah@gmail.com</td>
+                                            <td>081234567890</td>
+                                            <td><span class="badge badge-success">Aktif</span></td>
+                                            <td>
+                                                <button class="btn btn-sm btn-info"><i class="fas fa-edit"></i></button>
+                                                <button class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
+                                            </td>
+                                        </tr>
+                                        <!-- Tambahkan baris data lainnya -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 2. Menu Jabatan -->
+                <section id="jabatan" class="section-content" style="display: none;">
+                    <h2>Data Jabatan</h2>
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <h5>Total Jabatan: 5</h5>
+                                <button class="btn btn-primary" data-toggle="modal" data-target="#modalTambahJabatan">
+                                    <i class="fas fa-plus"></i> Tambah Jabatan
+                                </button>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>Kode Jabatan</th>
+                                            <th>Nama Jabatan</th>
+                                            <th>Gaji Pokok</th>
+                                            <th>Tunjangan</th>
+                                            <th>Deskripsi</th>
+                                            <th>Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>JBT001</td>
+                                            <td>Manager IT</td>
+                                            <td>Rp 15.000.000</td>
+                                            <td>Rp 3.000.000</td>
+                                            <td>Memimpin dan mengelola divisi IT</td>
+                                            <td>
+                                                <button class="btn btn-sm btn-info" data-toggle="tooltip" title="Edit">
+                                                    <i class="fas fa-edit"></i>
+                                                </button>
+                                                <button class="btn btn-sm btn-danger" data-toggle="tooltip" title="Hapus">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>JBT002</td>
+                                            <td>Staff Developer</td>
+                                            <td>Rp 8.000.000</td>
+                                            <td>Rp 1.500.000</td>
+                                            <td>Pengembangan aplikasi dan sistem</td>
+                                            <td>
+                                                <button class="btn btn-sm btn-info" data-toggle="tooltip" title="Edit">
+                                                    <i class="fas fa-edit"></i>
+                                                </button>
+                                                <button class="btn btn-sm btn-danger" data-toggle="tooltip" title="Hapus">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>JBT003</td>
+                                            <td>Staff HRD</td>
+                                            <td>Rp 7.500.000</td>
+                                            <td>Rp 1.500.000</td>
+                                            <td>Mengelola sumber daya manusia</td>
+                                            <td>
+                                                <button class="btn btn-sm btn-info" data-toggle="tooltip" title="Edit">
+                                                    <i class="fas fa-edit"></i>
+                                                </button>
+                                                <button class="btn btn-sm btn-danger" data-toggle="tooltip" title="Hapus">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>JBT004</td>
+                                            <td>Staff Keuangan</td>
+                                            <td>Rp 7.500.000</td>
+                                            <td>Rp 1.500.000</td>
+                                            <td>Mengelola keuangan perusahaan</td>
+                                            <td>
+                                                <button class="btn btn-sm btn-info" data-toggle="tooltip" title="Edit">
+                                                    <i class="fas fa-edit"></i>
+                                                </button>
+                                                <button class="btn btn-sm btn-danger" data-toggle="tooltip" title="Hapus">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>JBT005</td>
+                                            <td>Staff Marketing</td>
+                                            <td>Rp 7.500.000</td>
+                                            <td>Rp 1.500.000</td>
+                                            <td>Mengelola pemasaran dan promosi</td>
+                                            <td>
+                                                <button class="btn btn-sm btn-info" data-toggle="tooltip" title="Edit">
+                                                    <i class="fas fa-edit"></i>
+                                                </button>
+                                                <button class="btn btn-sm btn-danger" data-toggle="tooltip" title="Hapus">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 3. Menu Divisi -->
+                <section id="divisi" class="section-content" style="display: none;">
+                    <h2>Data Divisi</h2>
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <h5>Total Divisi: 4</h5>
+                                <button class="btn btn-primary" data-toggle="modal" data-target="#modalTambahDivisi">
+                                    <i class="fas fa-plus"></i> Tambah Divisi
+                                </button>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>Kode Divisi</th>
+                                            <th>Nama Divisi</th>
+                                            <th>Kepala Divisi</th>
+                                            <th>Jumlah Karyawan</th>
+                                            <th>Deskripsi</th>
+                                            <th>Status</th>
+                                            <th>Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>DIV001</td>
+                                            <td>IT</td>
+                                            <td>Falah Nurdiansyah</td>
+                                            <td>2</td>
+                                            <td>Divisi Teknologi Informasi</td>
+                                            <td><span class="badge badge-success">Aktif</span></td>
+                                            <td>
+                                                <button class="btn btn-sm btn-info" data-toggle="tooltip" title="Edit">
+                                                    <i class="fas fa-edit"></i>
+                                                </button>
+                                                <button class="btn btn-sm btn-danger" data-toggle="tooltip" title="Hapus">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>DIV002</td>
+                                            <td>HR</td>
+                                            <td>Darto Wijaya</td>
+                                            <td>1</td>
+                                            <td>Divisi Human Resource</td>
+                                            <td><span class="badge badge-success">Aktif</span></td>
+                                            <td>
+                                                <button class="btn btn-sm btn-info" data-toggle="tooltip" title="Edit">
+                                                    <i class="fas fa-edit"></i>
+                                                </button>
+                                                <button class="btn btn-sm btn-danger" data-toggle="tooltip" title="Hapus">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>DIV003</td>
+                                            <td>Finance</td>
+                                            <td>Joko Susilo</td>
+                                            <td>1</td>
+                                            <td>Divisi Keuangan</td>
+                                            <td><span class="badge badge-success">Aktif</span></td>
+                                            <td>
+                                                <button class="btn btn-sm btn-info" data-toggle="tooltip" title="Edit">
+                                                    <i class="fas fa-edit"></i>
+                                                </button>
+                                                <button class="btn btn-sm btn-danger" data-toggle="tooltip" title="Hapus">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>DIV004</td>
+                                            <td>Marketing</td>
+                                            <td>Yudi Santoso</td>
+                                            <td>1</td>
+                                            <td>Divisi Pemasaran</td>
+                                            <td><span class="badge badge-success">Aktif</span></td>
+                                            <td>
+                                                <button class="btn btn-sm btn-info" data-toggle="tooltip" title="Edit">
+                                                    <i class="fas fa-edit"></i>
+                                                </button>
+                                                <button class="btn btn-sm btn-danger" data-toggle="tooltip" title="Hapus">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 4. Menu Absensi -->
+                <section id="absensi-list" class="section-content" style="display: none;">
+                    <h2>Data Absensi</h2>
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <!-- Statistics Cards -->
+                            <div class="row mb-4">
+                                <div class="col-xl-3 col-md-6 mb-4">
+                                    <div class="card border-left-primary h-100 py-2">
+                                        <div class="card-body">
+                                            <div class="row no-gutters align-items-center">
+                                                <div class="col mr-2">
+                                                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                                        Total Karyawan</div>
+                                                    <div class="h5 mb-0 font-weight-bold text-gray-800">5</div>
+                                                </div>
+                                                <div class="col-auto">
+                                                    <i class="fas fa-users fa-2x text-gray-300"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-xl-3 col-md-6 mb-4">
+                                    <div class="card border-left-success h-100 py-2">
+                                        <div class="card-body">
+                                            <div class="row no-gutters align-items-center">
+                                                <div class="col mr-2">
+                                                    <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                                        Hadir</div>
+                                                    <div class="h5 mb-0 font-weight-bold text-gray-800">3</div>
+                                                </div>
+                                                <div class="col-auto">
+                                                    <i class="fas fa-check fa-2x text-gray-300"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-xl-3 col-md-6 mb-4">
+                                    <div class="card border-left-warning h-100 py-2">
+                                        <div class="card-body">
+                                            <div class="row no-gutters align-items-center">
+                                                <div class="col mr-2">
+                                                    <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                                        Terlambat</div>
+                                                    <div class="h5 mb-0 font-weight-bold text-gray-800">1</div>
+                                                </div>
+                                                <div class="col-auto">
+                                                    <i class="fas fa-clock fa-2x text-gray-300"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-xl-3 col-md-6 mb-4">
+                                    <div class="card border-left-danger h-100 py-2">
+                                        <div class="card-body">
+                                            <div class="row no-gutters align-items-center">
+                                                <div class="col mr-2">
+                                                    <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">
+                                                        Tidak Hadir</div>
+                                                    <div class="h5 mb-0 font-weight-bold text-gray-800">1</div>
+                                                </div>
+                                                <div class="col-auto">
+                                                    <i class="fas fa-times fa-2x text-gray-300"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Filter dan Tabel -->
+                            <div class="row mb-3">
+                                <div class="col-md-3">
+                                    <input type="date" class="form-control" id="filterTanggal" value="2024-02-20">
+                                </div>
+                                <div class="col-md-3">
+                                    <select class="form-control" id="filterDivisi">
+                                        <option value="">Semua Divisi</option>
+                                        <option value="IT">IT</option>
+                                        <option value="HR">HR</option>
+                                        <option value="Finance">Finance</option>
+                                        <option value="Marketing">Marketing</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-3">
+                                    <button class="btn btn-primary" onclick="filterAbsensi()">
+                                        <i class="fas fa-search"></i> Filter
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>No</th>
+                                            <th>Tanggal</th>
+                                            <th>NIP</th>
+                                            <th>Nama</th>
+                                            <th>Divisi</th>
+                                            <th>Jam Masuk</th>
+                                            <th>Jam Keluar</th>
+                                            <th>Status</th>
+                                            <th>Keterangan</th>
+                                            <th>Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>1</td>
+                                            <td>20 Feb 2024</td>
+                                            <td>NIP001</td>
+                                            <td>Falah Nurdiansyah</td>
+                                            <td>IT</td>
+                                            <td>07:55</td>
+                                            <td>17:00</td>
+                                            <td><span class="badge badge-success">Hadir</span></td>
+                                            <td>-</td>
+                                            <td>
+                                                <button class="btn btn-sm btn-info"><i class="fas fa-edit"></i></button>
+                                                <button class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>2</td>
+                                            <td>20 Feb 2024</td>
+                                            <td>NIP002</td>
+                                            <td>Aji Pratama</td>
+                                            <td>IT</td>
+                                            <td>08:05</td>
+                                            <td>17:05</td>
+                                            <td><span class="badge badge-warning">Terlambat</span></td>
+                                            <td>Terlambat 5 menit</td>
+                                            <td>
+                                                <button class="btn btn-sm btn-info"><i class="fas fa-edit"></i></button>
+                                                <button class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>3</td>
+                                            <td>20 Feb 2024</td>
+                                            <td>NIP003</td>
+                                            <td>Darto Wijaya</td>
+                                            <td>HR</td>
+                                            <td>07:50</td>
+                                            <td>17:00</td>
+                                            <td><span class="badge badge-success">Hadir</span></td>
+                                            <td>-</td>
+                                            <td>
+                                                <button class="btn btn-sm btn-info"><i class="fas fa-edit"></i></button>
+                                                <button class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>4</td>
+                                            <td>20 Feb 2024</td>
+                                            <td>NIP004</td>
+                                            <td>Joko Susilo</td>
+                                            <td>Finance</td>
+                                            <td>07:45</td>
+                                            <td>17:00</td>
+                                            <td><span class="badge badge-success">Hadir</span></td>
+                                            <td>-</td>
+                                            <td>
+                                                <button class="btn btn-sm btn-info"><i class="fas fa-edit"></i></button>
+                                                <button class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>5</td>
+                                            <td>20 Feb 2024</td>
+                                            <td>NIP005</td>
+                                            <td>Yudi Santoso</td>
+                                            <td>Marketing</td>
+                                            <td>-</td>
+                                            <td>-</td>
+                                            <td><span class="badge badge-danger">Tidak Hadir</span></td>
+                                            <td>Sakit (Surat Dokter)</td>
+                                            <td>
+                                                <button class="btn btn-sm btn-info"><i class="fas fa-edit"></i></button>
+                                                <button class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 5. Menu Slip Gaji -->
+                <section id="slipgaji" class="section-content" style="display: none;">
+                    <h2>Slip Gaji</h2>
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <!-- Filter dan Tombol -->
+                            <div class="row mb-4">
+                                <div class="col-md-4">
+                                    <select class="form-control" id="filterPeriode">
+                                        <option value="">Pilih Periode</option>
+                                        <option value="2024-02" selected>Februari 2024</option>
+                                        <option value="2024-01">Januari 2024</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4">
+                                    <select class="form-control" id="filterKaryawan">
+                                        <option value="">Pilih Karyawan</option>
+                                        <option value="NIP001">Falah Nurdiansyah - IT</option>
+                                        <option value="NIP002">Aji Pratama - IT</option>
+                                        <option value="NIP003">Darto Wijaya - HR</option>
+                                        <option value="NIP004">Joko Susilo - Finance</option>
+                                        <option value="NIP005">Yudi Santoso - Marketing</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4">
+                                    <button class="btn btn-primary">
+                                        <i class="fas fa-file-pdf"></i> Generate PDF
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Preview Slip Gaji -->
+                            <div class="slip-gaji-preview">
+                                <div class="text-center mb-4">
+                                    <h4>SLIP GAJI KARYAWAN</h4>
+                                    <h5>UNIVERSITAS PAMULANG</h5>
+                                    <p>Periode: Februari 2024</p>
+                                </div>
+
+                                <!-- Data Karyawan -->
+                                <div class="row mb-3">
+                                    <div class="col-md-6">
+                                        <table class="table table-borderless">
+                                            <tr>
+                                                <td width="150">NIP</td>
+                                                <td>: NIP001</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Nama</td>
+                                                <td>: Falah Nurdiansyah</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Jabatan</td>
+                                                <td>: Manager IT</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Divisi</td>
+                                                <td>: IT</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <table class="table table-borderless">
+                                            <tr>
+                                                <td width="150">Tanggal</td>
+                                                <td>: 25 Februari 2024</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Hari Kerja</td>
+                                                <td>: 22 Hari</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Hadir</td>
+                                                <td>: 20 Hari</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Izin/Sakit</td>
+                                                <td>: 2 Hari</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+
+                                <!-- Rincian Gaji -->
+                                <table class="table table-bordered">
+                                    <tr>
+                                        <th colspan="2">PENGHASILAN</th>
+                                    </tr>
+                                    <tr>
+                                        <td>Gaji Pokok</td>
+                                        <td class="text-right">Rp 15.000.000</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Tunjangan Jabatan</td>
+                                        <td class="text-right">Rp 3.000.000</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Tunjangan Transport</td>
+                                        <td class="text-right">Rp 1.000.000</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Tunjangan Makan</td>
+                                        <td class="text-right">Rp 800.000</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Total Penghasilan</th>
+                                        <th class="text-right">Rp 19.800.000</th>
+                                    </tr>
+                                    <tr>
+                                        <th colspan="2">POTONGAN</th>
+                                    </tr>
+                                    <tr>
+                                        <td>BPJS Kesehatan (1%)</td>
+                                        <td class="text-right">Rp 198.000</td>
+                                    </tr>
+                                    <tr>
+                                        <td>BPJS Ketenagakerjaan (2%)</td>
+                                        <td class="text-right">Rp 396.000</td>
+                                    </tr>
+                                    <tr>
+                                        <td>PPh 21</td>
+                                        <td class="text-right">Rp 1.000.000</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Potongan Ketidakhadiran</td>
+                                        <td class="text-right">Rp 200.000</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Total Potongan</th>
+                                        <th class="text-right">Rp 1.794.000</th>
+                                    </tr>
+                                    <tr>
+                                        <th>GAJI BERSIH</th>
+                                        <th class="text-right">Rp 18.006.000</th>
+                                    </tr>
+                                </table>
+
+                                <!-- Tanda Tangan -->
+                                <div class="row mt-4">
+                                    <div class="col-md-4">
+                                        <div class="text-center">
+                                            <p>Dibuat oleh,</p>
+                                            <br><br><br>
+                                            <p>Staff HRD</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="text-center">
+                                            <p>Disetujui oleh,</p>
+                                            <br><br><br>
+                                            <p>Manager HRD</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="text-center">
+                                            <p>Diterima oleh,</p>
+                                            <br><br><br>
+                                            <p>Falah Nurdiansyah</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tabel Riwayat Slip Gaji -->
+                    <div class="card mt-4">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">Riwayat Slip Gaji</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>No</th>
+                                            <th>Periode</th>
+                                            <th>NIP</th>
+                                            <th>Nama</th>
+                                            <th>Divisi</th>
+                                            <th>Gaji Pokok</th>
+                                            <th>Total Tunjangan</th>
+                                            <th>Total Potongan</th>
+                                            <th>Gaji Bersih</th>
+                                            <th>Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>1</td>
+                                            <td>Februari 2024</td>
+                                            <td>NIP001</td>
+                                            <td>Falah Nurdiansyah</td>
+                                            <td>IT</td>
+                                            <td>Rp 15.000.000</td>
+                                            <td>Rp 4.800.000</td>
+                                            <td>Rp 1.794.000</td>
+                                            <td>Rp 18.006.000</td>
+                                            <td>
+                                                <button class="btn btn-sm btn-info" title="Lihat Detail">
+                                                    <i class="fas fa-eye"></i>
+                                                </button>
+                                                <button class="btn btn-sm btn-primary" title="Download PDF">
+                                                    <i class="fas fa-download"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>2</td>
+                                            <td>Februari 2024</td>
+                                            <td>NIP002</td>
+                                            <td>Aji Pratama</td>
+                                            <td>IT</td>
+                                            <td>Rp 8.000.000</td>
+                                            <td>Rp 2.500.000</td>
+                                            <td>Rp 850.000</td>
+                                            <td>Rp 9.650.000</td>
+                                            <td>
+                                                <button class="btn btn-sm btn-info" title="Lihat Detail">
+                                                    <i class="fas fa-eye"></i>
+                                                </button>
+                                                <button class="btn btn-sm btn-primary" title="Download PDF">
+                                                    <i class="fas fa-download"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>3</td>
+                                            <td>Februari 2024</td>
+                                            <td>NIP003</td>
+                                            <td>Darto Wijaya</td>
+                                            <td>HR</td>
+                                            <td>Rp 7.500.000</td>
+                                            <td>Rp 2.000.000</td>
+                                            <td>Rp 760.000</td>
+                                            <td>Rp 8.740.000</td>
+                                            <td>
+                                                <button class="btn btn-sm btn-info" title="Lihat Detail">
+                                                    <i class="fas fa-eye"></i>
+                                                </button>
+                                                <button class="btn btn-sm btn-primary" title="Download PDF">
+                                                    <i class="fas fa-download"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>4</td>
+                                            <td>Februari 2024</td>
+                                            <td>NIP004</td>
+                                            <td>Joko Susilo</td>
+                                            <td>Finance</td>
+                                            <td>Rp 7.500.000</td>
+                                            <td>Rp 2.000.000</td>
+                                            <td>Rp 760.000</td>
+                                            <td>Rp 8.740.000</td>
+                                            <td>
+                                                <button class="btn btn-sm btn-info" title="Lihat Detail">
+                                                    <i class="fas fa-eye"></i>
+                                                </button>
+                                                <button class="btn btn-sm btn-primary" title="Download PDF">
+                                                    <i class="fas fa-download"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>5</td>
+                                            <td>Februari 2024</td>
+                                            <td>NIP005</td>
+                                            <td>Yudi Santoso</td>
+                                            <td>Marketing</td>
+                                            <td>Rp 7.500.000</td>
+                                            <td>Rp 2.000.000</td>
+                                            <td>Rp 760.000</td>
+                                            <td>Rp 8.740.000</td>
+                                            <td>
+                                                <button class="btn btn-sm btn-info" title="Lihat Detail">
+                                                    <i class="fas fa-eye"></i>
+                                                </button>
+                                                <button class="btn btn-sm btn-primary" title="Download PDF">
+                                                    <i class="fas fa-download"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Menu Data Absensi -->
+                <section id="absensi" class="section-content" style="display: none;">
+                    <div class="container-fluid">
+                        <!-- Header Section -->
+                        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                            <h1 class="h3 mb-0 text-gray-800">Data Absensi</h1>
+                            <div class="btn-group">
+                                <button class="btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#modalTambahAbsensi">
+                                    <i class="fas fa-plus fa-sm"></i> Input Absensi
+                                </button>
+                                <button class="btn btn-sm btn-success shadow-sm" onclick="exportExcel()">
+                                    <i class="fas fa-file-excel fa-sm"></i> Export Excel
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Statistics Cards -->
+                        <div class="row">
+                            <div class="col-xl-3 col-md-6 mb-4">
+                                <div class="card border-left-primary h-100 py-2">
+                                    <div class="card-body">
+                                        <div class="row no-gutters align-items-center">
+                                            <div class="col mr-2">
+                                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Total Karyawan</div>
+                                                <div class="h5 mb-0 font-weight-bold text-gray-800" id="totalKaryawan">0</div>
+                                            </div>
+                                            <div class="col-auto">
+                                                <i class="fas fa-users fa-2x text-gray-300"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-xl-3 col-md-6 mb-4">
+                                <div class="card border-left-success h-100 py-2">
+                                    <div class="card-body">
+                                        <div class="row no-gutters align-items-center">
+                                            <div class="col mr-2">
+                                                <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Hadir Hari Ini</div>
+                                                <div class="h5 mb-0 font-weight-bold text-gray-800" id="totalHadir">0</div>
+                                            </div>
+                                            <div class="col-auto">
+                                                <i class="fas fa-check-circle fa-2x text-gray-300"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-xl-3 col-md-6 mb-4">
+                                <div class="card border-left-warning h-100 py-2">
+                                    <div class="card-body">
+                                        <div class="row no-gutters align-items-center">
+                                            <div class="col mr-2">
+                                                <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Terlambat</div>
+                                                <div class="h5 mb-0 font-weight-bold text-gray-800" id="totalTerlambat">0</div>
+                                            </div>
+                                            <div class="col-auto">
+                                                <i class="fas fa-clock fa-2x text-gray-300"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-xl-3 col-md-6 mb-4">
+                                <div class="card border-left-danger h-100 py-2">
+                                    <div class="card-body">
+                                        <div class="row no-gutters align-items-center">
+                                            <div class="col mr-2">
+                                                <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">Tidak Hadir</div>
+                                                <div class="h5 mb-0 font-weight-bold text-gray-800" id="totalTidakHadir">0</div>
+                                            </div>
+                                            <div class="col-auto">
+                                                <i class="fas fa-times-circle fa-2x text-gray-300"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Main Content -->
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card shadow mb-4">
+                                    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                        <h6 class="m-0 font-weight-bold text-primary">Data Absensi Karyawan</h6>
+                                        <div class="dropdown no-arrow">
+                                            <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown">
+                                                <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                            </a>
+                                            <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in">
+                                                <a class="dropdown-item" href="#" onclick="printAbsensi()">
+                                                    <i class="fas fa-print fa-sm fa-fw mr-2 text-gray-400"></i>
+                                                    Print
+                                                </a>
+                                                <a class="dropdown-item" href="#" onclick="exportExcel()">
+                                                    <i class="fas fa-file-excel fa-sm fa-fw mr-2 text-gray-400"></i>
+                                                    Export Excel
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <!-- Filter Section -->
+                                        <div class="row mb-3">
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label class="small mb-1">Departemen</label>
+                                                    <select class="form-control form-control-sm" id="filterDepartemen">
+                                                        <option value="">Semua Departemen</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label class="small mb-1">Tanggal</label>
+                                                    <input type="date" class="form-control form-control-sm" id="filterTanggal">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label class="small mb-1">Status</label>
+                                                    <select class="form-control form-control-sm" id="filterStatus">
+                                                        <option value="">Semua Status</option>
+                                                        <option value="hadir">Hadir</option>
+                                                        <option value="terlambat">Terlambat</option>
+                                                        <option value="izin">Izin</option>
+                                                        <option value="sakit">Sakit</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label class="small mb-1">&nbsp;</label>
+                                                    <button class="btn btn-primary btn-sm btn-block" onclick="filterAbsensi()">
+                                                        <i class="fas fa-search fa-sm"></i> Filter
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Table -->
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered table-hover" id="tabelAbsensi" width="100%">
+                                                <thead class="thead-light">
+                                                    <tr>
+                                                        <th class="text-center" style="width: 50px">No</th>
+                                                        <th>NIP</th>
+                                                        <th>Nama</th>
+                                                        <th>Departemen</th>
+                                                        <th>Tanggal</th>
+                                                        <th>Jam Masuk</th>
+                                                        <th>Jam Keluar</th>
+                                                        <th>Status</th>
+                                                        <th style="width: 100px">Aksi</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <!-- Data will be populated by JavaScript -->
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Modal Tambah Absensi -->
+                <div class="modal fade" id="modalTambahAbsensi">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Tambah Absensi</h5>
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            </div>
+                            <form id="formTambahAbsensi">
+                                <div class="modal-body">
+                                    <div class="form-group">
+                                        <label>Tanggal</label>
+                                        <input type="date" class="form-control" name="tanggal" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Karyawan</label>
+                                        <select class="form-control" name="karyawan" required>
+                                            <option value="">Pilih Karyawan</option>
+                                            <option value="1">Falah Nurdiansyah</option>
+                                            <option value="2">Aji Pratama</option>
+                                            <option value="3">Darto Wijaya</option>
+                                            <option value="4">Joko Susilo</option>
+                                            <option value="5">Yudi Santoso</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Status</label>
+                                        <select class="form-control" name="status" required onchange="toggleJamAbsensi(this)">
+                                            <option value="hadir">Hadir</option>
+                                            <option value="terlambat">Terlambat</option>
+                                            <option value="izin">Izin</option>
+                                            <option value="sakit">Sakit</option>
+                                        </select>
+                                    </div>
+                                    <div id="jamAbsensi">
+                                        <div class="form-group">
+                                            <label>Jam Masuk</label>
+                                            <input type="time" class="form-control" name="jam_masuk">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Jam Keluar</label>
+                                            <input type="time" class="form-control" name="jam_keluar">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Keterangan</label>
+                                        <textarea class="form-control" name="keterangan" rows="3"></textarea>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                                    <button type="submit" class="btn btn-primary">Simpan</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Menu Sakit -->
+                <section id="sakit" class="section-content" style="display: none;">
+                    <h2>Data Sakit Karyawan</h2>
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <!-- Statistics Cards -->
+                            <div class="row mb-4">
+                                <div class="col-xl-4 col-md-6 mb-4">
+                                    <div class="card border-left-danger h-100 py-2">
+                                        <div class="card-body">
+                                            <div class="row no-gutters align-items-center">
+                                                <div class="col mr-2">
+                                                    <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">
+                                                        Total Sakit Bulan Ini</div>
+                                                    <div class="h5 mb-0 font-weight-bold text-gray-800">2</div>
+                                                </div>
+                                                <div class="col-auto">
+                                                    <i class="fas fa-notes-medical fa-2x text-gray-300"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-xl-4 col-md-6 mb-4">
+                                    <div class="card border-left-success h-100 py-2">
+                                        <div class="card-body">
+                                            <div class="row no-gutters align-items-center">
+                                                <div class="col mr-2">
+                                                    <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                                        Dengan Surat Dokter</div>
+                                                    <div class="h5 mb-0 font-weight-bold text-gray-800">2</div>
+                                                </div>
+                                                <div class="col-auto">
+                                                    <i class="fas fa-file-medical fa-2x text-gray-300"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-xl-4 col-md-6 mb-4">
+                                    <div class="card border-left-warning h-100 py-2">
+                                        <div class="card-body">
+                                            <div class="row no-gutters align-items-center">
+                                                <div class="col mr-2">
+                                                    <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                                        Menunggu Verifikasi</div>
+                                                    <div class="h5 mb-0 font-weight-bold text-gray-800">1</div>
+                                                </div>
+                                                <div class="col-auto">
+                                                    <i class="fas fa-clock fa-2x text-gray-300"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Filter dan Tombol Tambah -->
+                            <div class="row mb-3">
+                                <div class="col-md-3">
+                                    <input type="month" class="form-control" id="filterBulan" value="2024-02">
+                                </div>
+                                <div class="col-md-3">
+                                    <select class="form-control" id="filterDivisi">
+                                        <option value="">Semua Divisi</option>
+                                        <option value="IT">IT</option>
+                                        <option value="HR">HR</option>
+                                        <option value="Finance">Finance</option>
+                                        <option value="Marketing">Marketing</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6 text-right">
+                                    <button class="btn btn-primary" data-toggle="modal" data-target="#modalTambahSakit">
+                                        <i class="fas fa-plus"></i> Tambah Data Sakit
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Tabel Data Sakit -->
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>No</th>
+                                            <th>Tanggal Pengajuan</th>
+                                            <th>NIP</th>
+                                            <th>Nama</th>
+                                            <th>Divisi</th>
+                                            <th>Tanggal Sakit</th>
+                                            <th>Diagnosa</th>
+                                            <th>Surat Dokter</th>
+                                            <th>Status</th>
+                                            <th>Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>1</td>
+                                            <td>17 Feb 2024</td>
+                                            <td>NIP002</td>
+                                            <td>Aji Pratama</td>
+                                            <td>IT</td>
+                                            <td>18 Feb 2024</td>
+                                            <td>Demam</td>
+                                            <td>
+                                                <button class="btn btn-sm btn-info" title="Lihat Surat">
+                                                    <i class="fas fa-file-medical"></i>
+                                                </button>
+                                            </td>
+                                            <td><span class="badge badge-success">Terverifikasi</span></td>
+                                            <td>
+                                                <button class="btn btn-sm btn-info" title="Detail">
+                                                    <i class="fas fa-eye"></i>
+                                                </button>
+                                                <button class="btn btn-sm btn-danger" title="Hapus">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>2</td>
+                                            <td>19 Feb 2024</td>
+                                            <td>NIP005</td>
+                                            <td>Yudi Santoso</td>
+                                            <td>Marketing</td>
+                                            <td>20 Feb 2024</td>
+                                            <td>Sakit</td>
+                                            <td>
+                                                <button class="btn btn-sm btn-info" title="Lihat Surat">
+                                                    <i class="fas fa-file-medical"></i>
+                                                </button>
+                                            </td>
+                                            <td><span class="badge badge-warning">Pending</span></td>
+                                            <td>
+                                                <button class="btn btn-sm btn-success" title="Verifikasi">
+                                                    <i class="fas fa-check"></i>
+                                                </button>
+                                                <button class="btn btn-sm btn-danger" title="Tolak">
+                                                    <i class="fas fa-times"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Menu Izin -->
+                <section id="izin" class="section-content" style="display: none;">
+                    <h2>Data Izin Karyawan</h2>
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <!-- Statistics Cards -->
+                            <div class="row mb-4">
+                                <div class="col-xl-4 col-md-6 mb-4">
+                                    <div class="card border-left-info h-100 py-2">
+                                        <div class="card-body">
+                                            <div class="row no-gutters align-items-center">
+                                                <div class="col mr-2">
+                                                    <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                                                        Total Izin Bulan Ini</div>
+                                                    <div class="h5 mb-0 font-weight-bold text-gray-800">3</div>
+                                                </div>
+                                                <div class="col-auto">
+                                                    <i class="fas fa-calendar-check fa-2x text-gray-300"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-xl-4 col-md-6 mb-4">
+                                    <div class="card border-left-success h-100 py-2">
+                                        <div class="card-body">
+                                            <div class="row no-gutters align-items-center">
+                                                <div class="col mr-2">
+                                                    <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                                        Izin Disetujui</div>
+                                                    <div class="h5 mb-0 font-weight-bold text-gray-800">2</div>
+                                                </div>
+                                                <div class="col-auto">
+                                                    <i class="fas fa-check-circle fa-2x text-gray-300"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-xl-4 col-md-6 mb-4">
+                                    <div class="card border-left-warning h-100 py-2">
+                                        <div class="card-body">
+                                            <div class="row no-gutters align-items-center">
+                                                <div class="col mr-2">
+                                                    <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                                        Menunggu Persetujuan</div>
+                                                    <div class="h5 mb-0 font-weight-bold text-gray-800">1</div>
+                                                </div>
+                                                <div class="col-auto">
+                                                    <i class="fas fa-clock fa-2x text-gray-300"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Filter dan Tombol Tambah -->
+                            <div class="row mb-3">
+                                <div class="col-md-3">
+                                    <input type="month" class="form-control" id="filterBulan" value="2024-02">
+                                </div>
+                                <div class="col-md-3">
+                                    <select class="form-control" id="filterStatus">
+                                        <option value="">Semua Status</option>
+                                        <option value="Disetujui">Disetujui</option>
+                                        <option value="Pending">Menunggu Persetujuan</option>
+                                        <option value="Ditolak">Ditolak</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6 text-right">
+                                    <button class="btn btn-primary" data-toggle="modal" data-target="#modalTambahIzin">
+                                        <i class="fas fa-plus"></i> Ajukan Izin
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Tabel Data Izin -->
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>No</th>
+                                            <th>Tanggal Pengajuan</th>
+                                            <th>NIP</th>
+                                            <th>Nama</th>
+                                            <th>Tanggal Izin</th>
+                                            <th>Jenis Izin</th>
+                                            <th>Keterangan</th>
+                                            <th>Status</th>
+                                            <th>Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>1</td>
+                                            <td>18 Feb 2024</td>
+                                            <td>NIP003</td>
+                                            <td>Darto Wijaya</td>
+                                            <td>19 Feb 2024</td>
+                                            <td>Izin</td>
+                                            <td>Urusan Keluarga</td>
+                                            <td><span class="badge badge-success">Disetujui</span></td>
+                                            <td>
+                                                <button class="btn btn-sm btn-info" title="Lihat Detail">
+                                                    <i class="fas fa-eye"></i>
+                                                </button>
+                                                <button class="btn btn-sm btn-danger" title="Hapus">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>2</td>
+                                            <td>17 Feb 2024</td>
+                                            <td>NIP002</td>
+                                            <td>Aji Pratama</td>
+                                            <td>18 Feb 2024</td>
+                                            <td>Sakit</td>
+                                            <td>Demam (Surat Dokter)</td>
+                                            <td><span class="badge badge-success">Disetujui</span></td>
+                                            <td>
+                                                <button class="btn btn-sm btn-info" title="Lihat Detail">
+                                                    <i class="fas fa-eye"></i>
+                                                </button>
+                                                <button class="btn btn-sm btn-danger" title="Hapus">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>3</td>
+                                            <td>19 Feb 2024</td>
+                                            <td>NIP005</td>
+                                            <td>Yudi Santoso</td>
+                                            <td>20 Feb 2024</td>
+                                            <td>Sakit</td>
+                                            <td>Sakit (Surat Dokter)</td>
+                                            <td><span class="badge badge-warning">Pending</span></td>
+                                            <td>
+                                                <button class="btn btn-sm btn-success" title="Setujui">
+                                                    <i class="fas fa-check"></i>
+                                                </button>
+                                                <button class="btn btn-sm btn-danger" title="Tolak">
+                                                    <i class="fas fa-times"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </main>
+        </div>
+    </div>
+
+    <!-- Link ke Bootstrap JS dan jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- Modal Tambah Karyawan -->
+    <div class="modal fade" id="modalTambahKaryawan">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Tambah Karyawan</h5>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <form id="formTambahKaryawan">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label>NIP</label>
+                            <input type="text" class="form-control" name="nip" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Nama Lengkap</label>
+                            <input type="text" class="form-control" name="nama" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Jabatan</label>
+                            <select class="form-control" name="jabatan" required>
+                                <option value="">Pilih Jabatan</option>
+                                <option value="Manager">Manager</option>
+                                <option value="Staff">Staff</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Divisi</label>
+                            <select class="form-control" name="divisi" required>
+                                <option value="">Pilih Divisi</option>
+                                <option value="IT">IT</option>
+                                <option value="HR">HR</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="email" class="form-control" name="email">
+                        </div>
+                        <div class="form-group">
+                            <label>No. Telepon</label>
+                            <input type="tel" class="form-control" name="telepon">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                        <button type="submit" class="btn btn-primary">Simpan</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Tambah Jabatan -->
+    <div class="modal fade" id="modalTambahJabatan">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Tambah Jabatan</h5>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <form id="formTambahJabatan">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label>Kode Jabatan</label>
+                            <input type="text" class="form-control" name="kode_jabatan" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Nama Jabatan</label>
+                            <input type="text" class="form-control" name="nama_jabatan" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Gaji Pokok</label>
+                            <input type="number" class="form-control" name="gaji_pokok" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Tunjangan</label>
+                            <input type="number" class="form-control" name="tunjangan" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Deskripsi</label>
+                            <textarea class="form-control" name="deskripsi" rows="3"></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                        <button type="submit" class="btn btn-primary">Simpan</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Tambah Divisi -->
+    <div class="modal fade" id="modalTambahDivisi">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Tambah Divisi</h5>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <form id="formTambahDivisi">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label>Kode Divisi</label>
+                            <input type="text" class="form-control" name="kode_divisi" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Nama Divisi</label>
+                            <input type="text" class="form-control" name="nama_divisi" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Kepala Divisi</label>
+                            <select class="form-control" name="kepala_divisi" required>
+                                <option value="">Pilih Kepala Divisi</option>
+                                <option value="1">Falah Nurdiansyah</option>
+                                <option value="2">Darto Wijaya</option>
+                                <option value="3">Joko Susilo</option>
+                                <option value="4">Yudi Santoso</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Deskripsi</label>
+                            <textarea class="form-control" name="deskripsi" rows="3"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Status</label>
+                            <select class="form-control" name="status" required>
+                                <option value="1">Aktif</option>
+                                <option value="0">Tidak Aktif</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                        <button type="submit" class="btn btn-primary">Simpan</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Script untuk handle form submission -->
+    <script>
+        // Data sementara untuk simulasi
+        let dataKaryawan = [
+            {
+                nip: 'NIP001',
+                nama: 'Falah Nurdiansyah',
+                jabatan: 'Manager IT',
+                divisi: 'IT',
+                email: 'falah@example.com',
+                telepon: '081234567890',
+                status: 'Aktif'
+            },
+            {
+                nip: 'NIP002',
+                nama: 'Aji Pratama',
+                jabatan: 'Staff Developer',
+                divisi: 'IT',
+                email: 'aji@example.com',
+                telepon: '081234567891',
+                status: 'Aktif'
+            },
+            {
+                nip: 'NIP003',
+                nama: 'Darto Wijaya',
+                jabatan: 'Staff HRD',
+                divisi: 'HR',
+                email: 'darto@example.com',
+                telepon: '081234567892',
+                status: 'Aktif'
+            },
+            {
+                nip: 'NIP004',
+                nama: 'Joko Susilo',
+                jabatan: 'Staff Keuangan',
+                divisi: 'Finance',
+                email: 'joko@example.com',
+                telepon: '081234567893',
+                status: 'Aktif'
+            },
+            {
+                nip: 'NIP005',
+                nama: 'Yudi Santoso',
+                jabatan: 'Staff Marketing',
+                divisi: 'Marketing',
+                email: 'yudi@example.com',
+                telepon: '081234567894',
+                status: 'Aktif'
+            }
+        ];
+
+
+        // Update fungsi filter absensi
+        function filterAbsensi() {
+            const tanggalMulai = document.getElementById('tanggalMulai').value;
+            const tanggalAkhir = document.getElementById('tanggalAkhir').value;
+            const karyawanId = document.getElementById('filterKaryawan').value;
+            
+            let filteredData = [...dataAbsensi];
+            
+            if (tanggalMulai) {
+                filteredData = filteredData.filter(item => item.tanggal >= tanggalMulai);
+            }
+            if (tanggalAkhir) {
+                filteredData = filteredData.filter(item => item.tanggal <= tanggalAkhir);
+            }
+            if (karyawanId) {
+                const selectedKaryawan = dataKaryawan.find(k => k.nip === `NIP00${karyawanId}`);
+                if (selectedKaryawan) {
+                    filteredData = filteredData.filter(item => item.nip === selectedKaryawan.nip);
+                }
+            }
+            
+            refreshAbsensiTable(filteredData);
+        }
+
+        // Populate initial data
+        function initializeAbsensi() {
+            populateDepartemenFilter();
+            updateStatistics();
+            refreshAbsensiTable();
+        }
+
+        // Update statistics cards
+        function updateStatistics() {
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('totalKaryawan').textContent = dataKaryawan.length;
+            
+            const todayAbsensi = dataAbsensi.filter(item => item.tanggal === today);
+            document.getElementById('totalHadir').textContent = 
+                todayAbsensi.filter(item => item.status.toLowerCase() === 'hadir').length;
+            document.getElementById('totalTerlambat').textContent = 
+                todayAbsensi.filter(item => item.status.toLowerCase() === 'terlambat').length;
+            document.getElementById('totalTidakHadir').textContent = 
+                dataKaryawan.length - todayAbsensi.length;
+        }
+
+        // Refresh table with filtered data
+        function refreshAbsensiTable(filteredData = dataAbsensi) {
+            const tableBody = document.querySelector('#tabelAbsensi tbody');
+            if (tableBody) {
+                tableBody.innerHTML = filteredData.map((item, index) => {
+                    const karyawan = dataKaryawan.find(k => k.nip === item.nip);
+                    return `
+                        <tr>
+                            <td class="text-center">${index + 1}</td>
+                            <td>${item.nip}</td>
+                            <td>${karyawan ? karyawan.nama : '-'}</td>
+                            <td>${karyawan ? karyawan.departemen : '-'}</td>
+                            <td>${formatDate(item.tanggal)}</td>
+                            <td>${item.jam_masuk}</td>
+                            <td>${item.jam_keluar}</td>
+                            <td>
+                                <span class="badge badge-${getStatusBadgeClass(item.status)}">
+                                    ${item.status}
+                                </span>
+                            </td>
+                            <td>
+                                <button class="btn btn-sm btn-info" onclick="editAbsensi('${item.nip}', '${item.tanggal}')">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button class="btn btn-sm btn-danger" onclick="deleteAbsensi('${item.nip}', '${item.tanggal}')">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    `;
+                }).join('');
+            }
+        }
+
+        // Initialize when document is ready
+        document.addEventListener('DOMContentLoaded', initializeAbsensi);
+
+        // Tambah fungsi format tanggal
+        function formatDate(dateString) {
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            return new Date(dateString).toLocaleDateString('id-ID', options);
+        }
+
+        // Update fungsi untuk menambah absensi baru
+        document.getElementById('formTambahAbsensi')?.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const formData = new FormData(this);
+            
+            const karyawanId = formData.get('karyawan');
+            const selectedKaryawan = dataKaryawan.find(k => k.nip === `NIP00${karyawanId}`);
+            
+            if (selectedKaryawan) {
+                const newData = {
+                    tanggal: formData.get('tanggal'),
+                    nip: selectedKaryawan.nip,
+                    nama: selectedKaryawan.nama,
+                    jam_masuk: formData.get('status') === 'hadir' || formData.get('status') === 'terlambat' ? formData.get('jam_masuk') : '-',
+                    jam_keluar: formData.get('status') === 'hadir' || formData.get('status') === 'terlambat' ? formData.get('jam_keluar') : '-',
+                    status: formData.get('status').charAt(0).toUpperCase() + formData.get('status').slice(1),
+                    keterangan: formData.get('keterangan') || '-'
+                };
+                
+                // Cek apakah sudah ada absensi di tanggal yang sama
+                const existingIndex = dataAbsensi.findIndex(item => 
+                    item.nip === newData.nip && item.tanggal === newData.tanggal
+                );
+                
+                if (existingIndex >= 0) {
+                    dataAbsensi[existingIndex] = newData;
+                } else {
+                    dataAbsensi.unshift(newData);
+                }
+                
+                refreshAbsensiTable();
+                this.reset();
+                $('#modalTambahAbsensi').modal('hide');
+                
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Berhasil!',
+                    text: 'Data absensi berhasil ditambahkan',
+                    timer: 1500,
+                    showConfirmButton: false
+                });
+            }
+        });
+
+        // Tambah fungsi untuk edit absensi
+        function editAbsensi(nip, tanggal) {
+            const absensi = dataAbsensi.find(item => item.nip === nip && item.tanggal === tanggal);
+            if (absensi) {
+                const form = document.querySelector('#formTambahAbsensi');
+                const karyawanId = nip.replace('NIP00', '');
+                
+                form.querySelector('[name="tanggal"]').value = absensi.tanggal;
+                form.querySelector('[name="karyawan"]').value = karyawanId;
+                form.querySelector('[name="status"]').value = absensi.status.toLowerCase();
+                
+                if (absensi.jam_masuk !== '-') {
+                    form.querySelector('[name="jam_masuk"]').value = absensi.jam_masuk;
+                }
+                if (absensi.jam_keluar !== '-') {
+                    form.querySelector('[name="jam_keluar"]').value = absensi.jam_keluar;
+                }
+                
+                form.querySelector('[name="keterangan"]').value = absensi.keterangan;
+                
+                toggleJamAbsensi(form.querySelector('[name="status"]'));
+                $('#modalTambahAbsensi').modal('show');
+            }
+        }
+
+        // Fungsi untuk menampilkan section yang dipilih
+        function showSection(sectionId) {
+            // Sembunyikan semua section
+            document.querySelectorAll('.section-content').forEach(section => {
+                section.style.display = 'none';
+            });
+            
+            // Tampilkan section yang dipilih
+            const selectedSection = document.getElementById(sectionId);
+            if (selectedSection) {
+                selectedSection.style.display = 'block';
+            }
+            
+            // Update active state pada menu
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+            });
+            const activeLink = document.querySelector(`[onclick="showSection('${sectionId}')"]`);
+            if (activeLink) {
+                activeLink.classList.add('active');
+            }
+        }
+
+        // Fungsi untuk handle form submission
+        function handleFormSubmit(formId, form) {
+            const formData = new FormData(form);
+            const data = {
+                nip: formData.get('nip'),
+                nama: formData.get('nama'),
+                jabatan: formData.get('jabatan'),
+                divisi: formData.get('divisi'),
+                email: formData.get('email'),
+                telepon: formData.get('telepon'),
+                status: 'Aktif'
+            };
+
+            // Cek apakah ini edit atau tambah baru
+            const editIndex = form.dataset.editIndex;
+            
+            if (editIndex !== undefined) {
+                // Update data yang sudah ada
+                dataKaryawan[editIndex] = data;
+                form.removeAttribute('data-edit-index');
+            } else {
+                // Tambah data baru
+                dataKaryawan.push(data);
+            }
+
+            // Update tampilan tabel
+            refreshTable('karyawan');
+
+            // Reset form dan tutup modal
+            form.reset();
+            $('#modalTambahKaryawan').modal('hide');
+
+            // Tampilkan notifikasi
+            Swal.fire({
+                icon: 'success',
+                title: 'Berhasil!',
+                text: 'Data berhasil disimpan',
+                timer: 1500,
+                showConfirmButton: false
+            });
+        }
+
+        // Fungsi untuk refresh tampilan tabel
+        function refreshTable(type) {
+            const tableBody = document.querySelector('#karyawan-list table tbody');
+            if (tableBody) {
+                tableBody.innerHTML = dataKaryawan.map((item, index) => `
+                    <tr>
+                        <td>${item.nip}</td>
+                        <td>${item.nama}</td>
+                        <td>${item.jabatan}</td>
+                        <td>${item.divisi}</td>
+                        <td>${item.email || '-'}</td>
+                        <td>${item.telepon || '-'}</td>
+                        <td><span class="badge badge-success">Aktif</span></td>
+                        <td>
+                            <button class="btn btn-sm btn-info" onclick="editKaryawan(${index})">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="btn btn-sm btn-danger" onclick="deleteKaryawan(${index})">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                `).join('');
+
+                // Update jumlah data
+                updateDataCount();
+            }
+        }
+
+        // Fungsi untuk update jumlah data
+        function updateDataCount() {
+            const countElement = document.querySelector('#data-count');
+            if (countElement) {
+                countElement.textContent = `Total Data: ${dataKaryawan.length}`;
+            }
+        }
+
+        // Fungsi untuk edit karyawan
+        function editKaryawan(index) {
+            const karyawan = dataKaryawan[index];
+            const form = document.querySelector('#formTambahKaryawan');
+            
+            // Set data ke form
+            form.querySelector('[name="nip"]').value = karyawan.nip;
+            form.querySelector('[name="nama"]').value = karyawan.nama;
+            form.querySelector('[name="jabatan"]').value = karyawan.jabatan;
+            form.querySelector('[name="divisi"]').value = karyawan.divisi;
+            form.querySelector('[name="email"]').value = karyawan.email || '';
+            form.querySelector('[name="telepon"]').value = karyawan.telepon || '';
+
+            // Tandai form sedang dalam mode edit
+            form.dataset.editIndex = index;
+
+            // Tampilkan modal
+            $('#modalTambahKaryawan').modal('show');
+        }
+
+        // Fungsi untuk hapus karyawan
+        function deleteKaryawan(index) {
+            Swal.fire({
+                title: 'Apakah Anda yakin?',
+                text: "Data yang dihapus tidak dapat dikembalikan!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ya, hapus!',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    dataKaryawan.splice(index, 1);
+                    refreshTable('karyawan');
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Terhapus!',
+                        text: 'Data berhasil dihapus.',
+                        timer: 1500,
+                        showConfirmButton: false
+                    });
+                }
+            });
+        }
+
+        // Event listener saat dokumen dimuat
+        document.addEventListener('DOMContentLoaded', function() {
+            // Tampilkan dashboard sebagai default
+            showSection('dashboard');
+            
+            // Inisialisasi grafik kehadiran dengan diagram batang
+            const ctx = document.getElementById('kehadiranChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'],
+                    datasets: [
+                        {
+                            label: 'Hadir',
+                            data: [95, 92, 88, 94, 90, 93, 89, 91, 87, 92, 94, 88],
+                            backgroundColor: '#4e73df',
+                            borderColor: '#4e73df',
+                            borderWidth: 1
+                        },
+                        {
+                            label: 'Izin',
+                            data: [3, 5, 8, 4, 7, 5, 8, 6, 9, 5, 4, 8],
+                            backgroundColor: '#f6c23e',
+                            borderColor: '#f6c23e',
+                            borderWidth: 1
+                        },
+                        {
+                            label: 'Sakit',
+                            data: [2, 3, 4, 2, 3, 2, 3, 3, 4, 3, 2, 4],
+                            backgroundColor: '#e74a3b',
+                            borderColor: '#e74a3b',
+                            borderWidth: 1
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    layout: {
+                        padding: {
+                            left: 10,
+                            right: 25,
+                            top: 25,
+                            bottom: 0
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 100,
+                            ticks: {
+                                maxTicksLimit: 5,
+                                padding: 10,
+                                callback: function(value) {
+                                    return value + '%';
+                                }
+                            },
+                            grid: {
+                                color: "rgb(234, 236, 244)",
+                                drawBorder: false,
+                                borderDash: [2],
+                                zeroLineBorderDash: [2]
+                            },
+                            stacked: true
+                        },
+                        x: {
+                            grid: {
+                                display: false,
+                                drawBorder: false
+                            },
+                            ticks: {
+                                maxTicksLimit: 12,
+                                padding: 10
+                            },
+                            stacked: true
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: true,
+                            position: 'bottom',
+                            labels: {
+                                usePointStyle: true,
+                                padding: 20
+                            }
+                        },
+                        tooltip: {
+                            backgroundColor: "rgb(255,255,255)",
+                            bodyColor: "#858796",
+                            titleMarginBottom: 10,
+                            titleColor: '#6e707e',
+                            titleFontSize: 14,
+                            borderColor: '#dddfeb',
+                            borderWidth: 1,
+                            padding: 15,
+                            displayColors: true,
+                            intersect: false,
+                            mode: 'index',
+                            caretPadding: 10,
+                            callbacks: {
+                                label: function(context) {
+                                    return context.dataset.label + ': ' + 
+                                        context.parsed.y + '%';
+                                }
+                            }
+                        }
+                    },
+                    interaction: {
+                        intersect: false,
+                        mode: 'index'
+                    }
+                }
+            });
+
+            // Refresh tabel awal
+            refreshTable('karyawan');
+
+            // Event listener untuk form submit
+            const formKaryawan = document.querySelector('#formTambahKaryawan');
+            if (formKaryawan) {
+                formKaryawan.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    handleFormSubmit(this.id, this);
+                });
+            }
+
+            // Event listener untuk reset form saat modal ditutup
+            $('#modalTambahKaryawan').on('hidden.bs.modal', function() {
+                const form = this.querySelector('form');
+                if (form) {
+                    form.reset();
+                    form.removeAttribute('data-edit-index');
+                }
+            });
+
+            // Tambahkan ke dalam script yang sudah ada
+            document.addEventListener('DOMContentLoaded', function() {
+                // Fungsi untuk menangani active state pada menu
+                const navLinks = document.querySelectorAll('.nav-link');
+                navLinks.forEach(link => {
+                    link.addEventListener('click', function() {
+                        navLinks.forEach(l => l.classList.remove('active'));
+                        this.classList.add('active');
+                    });
+                });
+
+                // Menangani collapse menu
+                const collapseLinks = document.querySelectorAll('.nav-link.collapsed');
+                collapseLinks.forEach(link => {
+                    link.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        const target = this.getAttribute('data-target');
+                        const submenu = document.querySelector(target);
+                        
+                        // Tutup submenu lain
+                        document.querySelectorAll('.collapse').forEach(collapse => {
+                            if (collapse.id !== submenu.id) {
+                                collapse.classList.remove('show');
+                            }
+                        });
+                        
+                        // Toggle submenu yang diklik
+                        submenu.classList.toggle('show');
+                    });
+                });
+            });
+        });
+
+        // Fungsi format currency
+        function formatRupiah(angka) {
+            if(!angka) return 'Rp 0';
+            return new Intl.NumberFormat('id-ID', {
+                style: 'currency',
+                currency: 'IDR'
+            }).format(angka);
+        }
+
+        // Inisialisasi tooltip Bootstrap
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+
+        // Toggle jam absensi berdasarkan status
+        function toggleJamAbsensi(select) {
+            const jamAbsensi = document.getElementById('jamAbsensi');
+            if (select.value === 'hadir' || select.value === 'terlambat') {
+                jamAbsensi.style.display = 'block';
+            } else {
+                jamAbsensi.style.display = 'none';
+            }
+        }
+    </script>
+
+    <!-- Sweet Alert -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</body>
+</html>
